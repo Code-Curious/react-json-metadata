@@ -1,15 +1,17 @@
 body{
-  background-color: #F5F5F5;
+  /*background-color: #F5F5F5;*/
+  background-color: #F5F8FA;
+
   
 }
 .root {
-  padding: 30px;
+  /*padding: 30px;*/
   /*border: grey solid;*/
 }
 
 
 .json-reader {
-  padding: 10px;
+  padding: 25px;
   /*background-color: #F2F2F2;*/
   background-color: #FFFFFF;
   border: 1px solid;
@@ -18,6 +20,25 @@ body{
 }
 
 
-.sub-node {
-  padding-left: 20px;
+.subnode-container .subnode {
+  padding-left: 25px;
+}
+
+
+.collapse-btn {
+  height: 24px;
+  width: 24px;
+  line-height: 0.5 !important;
+  margin-bottom: 7px;
+  margin-left: -24px;
+  /* position: absolute !important; */
+}
+
+.complex-item-label {
+  display: inline-block;
+}
+
+
+.primitive-item-label {
+  font-weight: bold !important;
 }

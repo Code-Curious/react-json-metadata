@@ -7,15 +7,28 @@ import JsonNodeReader from './JsonNodeReader.js';
 class JsonReader extends Component {
   render() {
     let subComponents = Object.keys(this.props.jsonData).map(key => {
-      let subValue = this.props.jsonData[key];
-      return <JsonNodeReader itemkey={key} value={subValue} key={shortId.generate()}></JsonNodeReader>
+      let subType, subValue;
+      subType = this.props.jsonData[key].type;
+      if (subType === "object") {
+        subValue = this.props.jsonData[key].properties;
+      } else {
+        subValue = this.props.jsonData[key].value;
+      }
+
+      return <JsonNodeReader 
+        key={shortId.generate()}
+        itemKey={key} 
+        type={subType} 
+        value={subValue} 
+        path={key} 
+        depth={0} 
+      />
       
     })
 
 
     return (
       <div className="json-reader">
-        <h3>JsonReader :</h3>
         {subComponents}
       </div>
     );

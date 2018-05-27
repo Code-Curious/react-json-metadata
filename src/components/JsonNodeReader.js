@@ -3,6 +3,8 @@ import shortId from 'shortid';
 import {Collapse} from 'react-collapse';
 
 import CollapseButton from './CollapseButton.js';
+import EditableValue from './EditableValue.js';
+
  
 // TODO: handle array rendering
 
@@ -13,50 +15,94 @@ class JsonNodeReader extends Component {
     this.toggleCollapse = this.toggleCollapse.bind(this);
     this.state = { isOpened: true };
     this.collapseButton = React.createRef();
+    // console.log("constructor called !!");
   }
 
-  toggleCollapse(){
+  componentWillMount(){
+    // console.log("componentWillMount called")
+  }
+
+
+  componentDidMount(){
+    // console.log("componentWillMount called")
+    this._ismounted = true
+  }
+
+  componentWillReceiveProps(nextProps){
+    // console.log("componentWillReceiveProps called")
+  }
+
+  componentWillUpdate(nextProps, nextState){
+    // console.log("componentWillUpdate called")
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    // console.log("componentDidUpdate called")
+  }
+
+  componentWillUnmount(){
+    // console.log("componentWillUnmount called")
+    this._ismounted = false
+
+  }
+
+  toggleCollapse() {
     this.setState({ isOpened: !this.state.isOpened});
-    debugger;
-    let collapseBtn = this.collapseButton.current
-    console.log("collapseBtn.textContent :", collapseBtn.textContent);
-    if (collapseBtn.textContent === "+") {
-      collapseBtn.textContent = "-";
-    }
-    else {
-      collapseBtn.textContent = "+";
-    }
   }
+  
 
-  isValueComplex(value) {
-    return (value !== null && typeof value === 'object') || value.constructor === Array
+  isTypeObject(type) {
+    // return (value !== null && typeof value === 'object') || value.constructor === Array
+    return type === "object";
   }
 
   render() {
-    let value = this.props.value;
-    let key = this.props.itemkey;
-
-    if (this.isValueComplex(value)) {
+    const {type, value, itemKey, path, depth} = this.props;
+    console.log("props.value :", value);
+    if (this.isTypeObject(type)) {
       let subComponents = Object.keys(value).map(subKey => {
-        let subValue = value[subKey];
-        return <JsonNodeReader itemkey={subKey} value={subValue} key={shortId.generate()}></JsonNodeReader>
+        let subType, subValue;
+        subType = value[subKey].type;
+        if (subType === "object") {
+          subValue = value[subKey].properties;
+        } else {
+          subValue = value[subKey].value;
+        }
+        // let subValue = value[subKey];
+        // let subType = this.props.jsonData[subKey].type;
+      
+        // JSX for each subNode :
+        return <JsonNodeReader 
+          key={shortId.generate()}
+          itemKey={subKey}
+          type={subType}
+          value={subValue}
+          depth={depth + 1}
+          path={path + '.' + subKey}
+        />
       })
 
+      // subNode is an object :
       return ( 
-        <div>
-          <button ref={this.collapseButton} onClick={this.toggleCollapse}>
-          +
-          </button><span><strong>{key} (complex) : </strong></span>
+        <div className="subnode-container">
+        <CollapseButton isOpened={this.state.isOpened} clickHandler={this.toggleCollapse}></CollapseButton>
+          <h4 className="complex-item-label">{itemKey}</h4>
           <Collapse isOpened={this.state.isOpened} hasNestedCollapse={true}>
-            <div className="sub-node">{subComponents}</div>
+            <div className="card card-body bg-light subnode">{subComponents}</div>
           </Collapse>
         </div>
-        )
+      )
+
     } else {
+      // subNode is a primitive value :
       return (
         <div>
-          <span><strong>{key} (simple) : </strong></span>
-          <span>{value}</span>
+          <label className="control-label primitive-item-label">{itemKey} :</label>
+          <EditableValue 
+            value={value}
+            type={type}
+            path={path}
+          />
         </div>
         )
     }
