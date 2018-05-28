@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
+import * as actions from '../actions/actions';
+
+// Render l'input en question selon le type de la propriété (pour type primitive seulement )
 class EditableValue extends Component {
 
   booleanOptions = [
@@ -12,9 +17,11 @@ class EditableValue extends Component {
     value: this.props.value
   }
 
+  // TODO: debounce edit event firing
   onChange = (e) => {
-    this.setState({ value: e.target.value})
-    // this.
+    this.setState({ value: e.target.value});
+    this.props.editValue(e.target.value, this.props.path); // lancer l'action sur la stor
+
   }
 
   renderSwitch(){
@@ -26,7 +33,7 @@ class EditableValue extends Component {
                                 options={this.booleanOptions}
                                 value={this.state.value}
                               />
-      default : return <div>Type Not supported</div>
+      default : return <div className="text-danger">Type non supporté</div>
     }
   }
 
@@ -39,4 +46,11 @@ class EditableValue extends Component {
   }
 }
 
-export default EditableValue;
+
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators(actions, dispatch)
+}
+
+// composant a besoin juste des actions, d'où mapStateToProps === null
+export default connect(null, mapDispatchToProps)(EditableValue);
+

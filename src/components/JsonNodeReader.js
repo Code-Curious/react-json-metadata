@@ -6,6 +6,7 @@ import CollapseButton from './CollapseButton.js';
 import EditableValue from './EditableValue.js';
 
  
+// TODO: propTypes
 // TODO: handle array rendering
 
 // renders one node
@@ -14,36 +15,6 @@ class JsonNodeReader extends Component {
     super(props);
     this.toggleCollapse = this.toggleCollapse.bind(this);
     this.state = { isOpened: true };
-    this.collapseButton = React.createRef();
-    // console.log("constructor called !!");
-  }
-
-  componentWillMount(){
-    // console.log("componentWillMount called")
-  }
-
-
-  componentDidMount(){
-    // console.log("componentWillMount called")
-    this._ismounted = true
-  }
-
-  componentWillReceiveProps(nextProps){
-    // console.log("componentWillReceiveProps called")
-  }
-
-  componentWillUpdate(nextProps, nextState){
-    // console.log("componentWillUpdate called")
-  }
-
-  componentDidUpdate(prevProps, prevState){
-    // console.log("componentDidUpdate called")
-  }
-
-  componentWillUnmount(){
-    // console.log("componentWillUnmount called")
-    this._ismounted = false
-
   }
 
   toggleCollapse() {
@@ -52,7 +23,6 @@ class JsonNodeReader extends Component {
   
 
   isTypeObject(type) {
-    // return (value !== null && typeof value === 'object') || value.constructor === Array
     return type === "object";
   }
 

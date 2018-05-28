@@ -1,5 +1,5 @@
 const defaultState = {
-      JsonData: {
+      jsonData: {
         "name": {
           "type": "string",
           "value": "Salim"
@@ -75,6 +75,8 @@ const defaultState = {
         }
       }
 
+
+// TODO: action pour save jsonData to localstorage
 export default function rootReducer(state = defaultState, action = {}) {
   switch(action.type) {
     default: return state
