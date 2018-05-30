@@ -28,7 +28,7 @@ class JsonNodeReader extends Component {
 
   render() {
     const {type, value, itemKey, path, depth} = this.props;
-    console.log("props.value :", value);
+    // console.log("props.value :", value);
     if (this.isTypeObject(type)) {
       let subComponents = Object.keys(value).map(subKey => {
         let subType, subValue;
@@ -66,7 +66,7 @@ class JsonNodeReader extends Component {
     } else {
       // subNode is a primitive value :
       return (
-        <div>
+        <div className="subnode-container">
           <label className="control-label primitive-item-label">{itemKey} :</label>
           <EditableValue 
             value={value}

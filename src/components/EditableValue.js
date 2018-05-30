@@ -20,7 +20,7 @@ class EditableValue extends Component {
   // TODO: debounce edit event firing
   onChange = (e) => {
     this.setState({ value: e.target.value});
-    this.props.editValue(e.target.value, this.props.path); // lancer l'action sur la stor
+    this.props.editValue(e.target.value, this.props.path); // dispatch l'action sur la store
 
   }
 
