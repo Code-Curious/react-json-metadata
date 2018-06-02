@@ -58,7 +58,11 @@ class JsonNodeReader extends Component {
         <div className="subnode-container">
         <CollapseButton isOpened={this.state.isOpened} clickHandler={this.toggleCollapse}></CollapseButton>
           <h4 className="complex-item-label">{itemKey}</h4>
-          <EditPropertyButton />
+          <EditPropertyButton 
+            type={type}
+            path={path}
+            itemKey={itemKey}
+          />
           <Collapse isOpened={this.state.isOpened} hasNestedCollapse={true}>
             <div className="card card-body bg-light subnode">{subComponents}</div>
           </Collapse>
@@ -70,7 +74,11 @@ class JsonNodeReader extends Component {
       return (
         <div className="subnode-container">
           <label className="control-label primitive-item-label">{itemKey}</label>
-          <EditPropertyButton />
+          <EditPropertyButton 
+            type={type}
+            path={path}
+            itemKey={itemKey}
+          />
           <EditableValue 
             value={value}
             type={type}

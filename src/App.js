@@ -12,27 +12,30 @@ import Modal from './components/Modal.js';
 // ReactModal.setAppElement('#root');
 // const Modal = ReactModal;
 
+const modalStyle = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+};
+
+
 function App(props) {
   console.log("props in App :", props);
   return (
     <div className="container-fluid" id="root">
       <h2 className="text-center title">React JSON metadata</h2>
       <JsonReader jsonData={props.jsonData}/>
-      <Modal
+      <Modal 
         contentLabel="Édition d'une propriété"
-      >
-       {/*<h2 ref={subtitle => this.subtitle = subtitle}>Hello</h2>*/}
-       {/*<button onClick={this.closeModal}>close</button>*/}
-       {/*<div>I am a modal</div>
-       <form>
-          <input />
-          <button>tab navigation</button>
-          <button>stays</button>
-          <button>inside</button>
-          <button>the modal</button>
-        </form>*/}
-      </Modal>
-  </div>
+        style={modalStyle}
+
+       />
+    </div>
     );
   }
 

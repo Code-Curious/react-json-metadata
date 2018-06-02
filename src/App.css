@@ -63,3 +63,11 @@ body{
   background-color: initial;
   color: #0f768d;
 }
+
+.subnode-container > .modal-btn {
+  visibility: hidden;
+}
+
+.subnode-container:hover > .modal-btn {
+  visibility: visible;
+}
