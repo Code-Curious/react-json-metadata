@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import shortId from 'shortid';
+import PropTypes from "prop-types";
 import {Collapse} from 'react-collapse';
 
-import CollapseButton from './CollapseButton.js';
-import EditableValue from './EditableValue.js';
+import CollapseButton from './CollapseButton';
+import EditableValue from './EditableValue';
+import EditPropertyButton from './EditPropertyButton';
 
  
-// TODO: propTypes
 // TODO: handle array rendering
 
 // renders one node
@@ -57,6 +58,7 @@ class JsonNodeReader extends Component {
         <div className="subnode-container">
         <CollapseButton isOpened={this.state.isOpened} clickHandler={this.toggleCollapse}></CollapseButton>
           <h4 className="complex-item-label">{itemKey}</h4>
+          <EditPropertyButton />
           <Collapse isOpened={this.state.isOpened} hasNestedCollapse={true}>
             <div className="card card-body bg-light subnode">{subComponents}</div>
           </Collapse>
@@ -67,7 +69,8 @@ class JsonNodeReader extends Component {
       // subNode is a primitive value :
       return (
         <div className="subnode-container">
-          <label className="control-label primitive-item-label">{itemKey} :</label>
+          <label className="control-label primitive-item-label">{itemKey}</label>
+          <EditPropertyButton />
           <EditableValue 
             value={value}
             type={type}
@@ -77,6 +80,15 @@ class JsonNodeReader extends Component {
         )
     }
   }
+}
+
+
+JsonNodeReader.propTypes = {
+    type: PropTypes.string.isRequired,
+    value: PropTypes.any.isRequired,
+    itemKey: PropTypes.string.isRequired,
+    path: PropTypes.string.isRequired,
+    depth: PropTypes.number.isRequired
 }
 
 export default JsonNodeReader;

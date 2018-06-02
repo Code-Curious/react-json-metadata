@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Select from 'react-select';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import PropTypes from "prop-types";
 
 import * as actions from '../actions/actions';
 
@@ -51,6 +52,13 @@ function mapDispatchToProps (dispatch) {
   return bindActionCreators(actions, dispatch)
 }
 
+
+EditableValue.propTypes = {
+  value: PropTypes.any.isRequired,
+  type: PropTypes.string.isRequired,
+  path: PropTypes.string.isRequired
+}
+
+
 // composant a besoin juste des actions, d'où mapStateToProps === null
 export default connect(null, mapDispatchToProps)(EditableValue);
-

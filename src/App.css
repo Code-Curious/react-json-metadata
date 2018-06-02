@@ -4,7 +4,7 @@ body{
 
   
 }
-.root {
+#root {
   /*padding: 30px;*/
   /*border: grey solid;*/
 }
@@ -51,4 +51,15 @@ body{
 
 .primitive-item-label {
   font-weight: bold !important;
+}
+
+.modal-btn {
+  padding: 0px;
+  border: none;
+  margin-left: 6px;
+}
+
+.modal-btn:hover {
+  background-color: initial;
+  color: #0f768d;
 }

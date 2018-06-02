@@ -11,19 +11,19 @@ const extractJsonPath = function(state, rawPath) {
   console.log("rawPath :", rawPath);
   const nodeArray = rawPath.split('.')
   const result = "jsonData." + nodeArray.map( (word, index) => {
-    if (index === nodeArray.length - 1) return word + ".value";
+    if (index === nodeArray.length - 1) return word;
     else return word + ".properties.";
   }).join('')
 
-  console.info("result :", result);
+  console.info("result path :", result);
   return result;
 }
 
-const defaultState = {
+/*const defaultState = {
   jsonData: {
     "name": {
       "type": "string",
-      "value": "Salim"
+      "value": "Test"
     },
     "age": {
       "type": "number",
@@ -60,10 +60,6 @@ const defaultState = {
               "type": "string",
               "value": "apartment"
             },
-            "size": {
-              "type": "string", 
-              "value":"medium"
-            },
             "floor": {
               "type": "object", 
               "properties":{
@@ -94,19 +90,20 @@ const defaultState = {
         }
       }
     }
-  }
+}*/
 
 
-// TODO: action pour save jsonData to localstorage
+// TODO: action pour save jsonData to localStorage
 // TODO: action pour update key
 // TODO: action pour update type
-export default function rootReducer(state = defaultState, action = {}) {
+// TODO: actions pour modals
+export default function rootReducer(state = [], action = {}) {
   // console.log("Action was fired");
   switch(action.type) {
     case EDIT_VALUE:
-      return immutable.set(state, extractJsonPath(state, action.path), action.newValue);
+      return immutable.set(state, extractJsonPath(state, action.path) + '.value', action.newValue);
     default: 
-      console.log("Unknown action fired");
+      console.log("Unknown action fired :", action.type);
       return state;
 
   }

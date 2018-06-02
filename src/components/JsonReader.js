@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import shortId from 'shortid';
+import PropTypes from "prop-types";
+
 
 import JsonNodeReader from './JsonNodeReader.js';
 
@@ -34,5 +36,10 @@ class JsonReader extends Component {
     );
   }
 }
+
+JsonReader.propTypes = {
+  jsonData: PropTypes.object
+}
+
 
 export default JsonReader;
