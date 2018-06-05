@@ -24,6 +24,10 @@ body{
 }
 
 
+.subnode-container {
+  margin-top: 12px;
+}
+
 .subnode-container .subnode {
   padding-left: 25px;
 }
@@ -45,7 +49,7 @@ body{
 
 .complex-item-label {
   display: inline-block;
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 

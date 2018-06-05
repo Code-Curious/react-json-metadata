@@ -10,8 +10,9 @@ import * as actions from '../actions/actions';
 // ouvre modal
 class EditPropertyButton extends Component {
   openModal(e) {
-    const {type, itemKey, path} = this.props;
-    this.props.dispatch(openDialog('EDIT_PROPERTY', { type, itemKey, path }))
+    const {type, itemKey, path, depth} = this.props;
+    // this.props.dispatch(openDialog('EDIT_PROPERTY', { type, itemKey, path, depth }))
+    this.props.openEditModal(type, itemKey, path, depth);
   }
 
   render(){
@@ -29,8 +30,9 @@ function mapDispatchToProps (dispatch) {
 EditPropertyButton.propTypes = {
     type: PropTypes.string.isRequired,
     itemKey: PropTypes.string.isRequired,
-    path: PropTypes.string.isRequired
+    path: PropTypes.string.isRequired,
+    depth: PropTypes.number.isRequired
 }
 
 
-export default connect()(EditPropertyButton); // on a besoin de dispatch() seulement
+export default connect(null, mapDispatchToProps)(EditPropertyButton); // on a besoin de dispatch() seulement

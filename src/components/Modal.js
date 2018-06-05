@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import reduxDialog from 'redux-dialog';
+import reduxDialog, { openDialog, closeDialog } from 'redux-dialog';
 import PropTypes from "prop-types";
 import _ from 'lodash';
 
-import { editName, editType} from '../actions/actions';
+import { editName, editType, openEditModal, closeEditModal} from '../actions/actions';
 
 class BasicDialog extends Component {
   constructor(props) {
@@ -19,6 +19,7 @@ class BasicDialog extends Component {
       this.handleItemKeyChange = this.handleItemKeyChange.bind(this);
       this.handleTypeChange = this.handleTypeChange.bind(this);
       this.handleSave = this.handleSave.bind(this);
+      // const closeEditModal = this.props.closeEditModal.bind(this);
   }
 
   handleItemKeyChange(e) {
@@ -33,8 +34,21 @@ class BasicDialog extends Component {
     // this.props.dispatch()
     console.log("this.initialState :", this.initialState);
     console.log("this.state :", this.state);
-    if (this.state.itemKey !== this.initialState.itemKey) this.props.editName(this.state.itemKey, this.props.payload.path )
-    if (this.state.type !== this.initialState.type) this.props.editType(this.state.type, this.props.payload.path, this.props.payload.itemKey )
+
+    const currentItemKey = this.state.itemKey;
+    const currentType = this.state.type;
+    const initialItemKey = this.initialState.itemKey;
+    const initialType = this.initialState.type;
+
+    console.log("this.props.payload :", this.props.payload);
+    // if type or name has changed, trigger the action :
+    // if both have changed editName() gets fired first to provide the correct itemKey for editType
+    if (currentItemKey !== initialItemKey) this.props.editName(currentItemKey, this.props.payload.path, this.initialState.itemKey, this.props.payload.depth )
+    if (this.state.type !== this.initialState.type) this.props.editType(currentType, this.props.payload.path, this.props.payload.itemKey, this.props.payload.depth )
+
+    // TODO: handle errors
+    // close dialog
+    this.props.closeEditModal()
   }
 
   render() {
@@ -42,7 +56,7 @@ class BasicDialog extends Component {
       <div>
         <div className="modal-header">
           <h5 className="modal-title">Édition de la propriété "{this.props.payload.itemKey}"</h5>
-          <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={this.props.closeEditModal}>
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -69,7 +83,7 @@ class BasicDialog extends Component {
         </div>
         <div className="modal-footer">
           <button type="button" className="btn btn-primary" onClick={this.handleSave}>Sauvegarder</button>
-          <button type="button" className="btn btn-secondary" data-dismiss="modal">Annuler</button>
+          <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.props.closeEditModal}>Annuler</button>
         </div>
       </div>
     )
@@ -86,8 +100,16 @@ const Modal = reduxDialog({
   name: 'EDIT_PROPERTY'
 }) (BasicDialog);
 
+/*Modal.propTypes = {
+    type: PropTypes.string.isRequired,
+    itemKey: PropTypes.string.isRequired,
+    path: PropTypes.string.isRequired,
+    depth: PropTypes.number.isRequired
+}
+*/
+
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({ editType, editName }, dispatch)
+  return bindActionCreators({ editType, editName, openEditModal, closeEditModal }, dispatch)
 }
 
 export default connect(null, mapDispatchToProps)(Modal);

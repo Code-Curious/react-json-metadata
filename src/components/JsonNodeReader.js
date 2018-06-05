@@ -62,6 +62,7 @@ class JsonNodeReader extends Component {
             type={type}
             path={path}
             itemKey={itemKey}
+            depth={depth}
           />
           <Collapse isOpened={this.state.isOpened} hasNestedCollapse={true}>
             <div className="card card-body bg-light subnode">{subComponents}</div>
@@ -78,6 +79,7 @@ class JsonNodeReader extends Component {
             type={type}
             path={path}
             itemKey={itemKey}
+            depth={depth}
           />
           <EditableValue 
             value={value}

@@ -1,0 +1,42 @@
+- display as two tabs ?
+  -> schema definition
+  -> json edition
+
+
+- Components :
+  -> json reader
+  -> json node reader (renders inputs etc)
+  -> add node button
+  -> Collapse button
+  -> editable title
+  -> edit button ?
+  -> edit type button ?
+
+DONE:  add path & depth property to each node ✔
+DONE:  Rename control for renaming a property
+TOFIX: unecessary rerenders action dispatch
+TODO:  Collapse stuff ?
+TODO:  Add new node control 
+TODO:  Persister Localstorage
+TODO:  Affichage de la page vide au debut
+TODO:  confirmation before changing type
+TODO:  handle array rendering
+TODO:  how to handle array of objects (edit each object in a modal ?)
+
+
+DONE:  PropTypes
+TOFIX: Remember Collapse state
+TOFIX: Collapse height problem on nested
+TODO:  Remove parent JsonReader component
+TODO:  show controls only on hover
+TODO:  divide into presentational and container components
+TODO:  Export JSON 
+TODO:  Style
+TODO:  Style in first recursive etc
+
+
+TODO: Fake api call with timeout on edit
+TODO: testing ?
+
+
+- utiliser une librairie pour editable element

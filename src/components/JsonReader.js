@@ -22,7 +22,7 @@ class JsonReader extends Component {
         itemKey={key} 
         type={subType} 
         value={subValue} 
-        path={key} 
+        path={"jsonData." + key} 
         depth={0} 
       />
       

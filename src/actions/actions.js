@@ -1,4 +1,5 @@
-import { EDIT_VALUE, EDIT_NAME, EDIT_TYPE } from './actionTypes';
+import { openDialog, closeDialog } from 'redux-dialog';
+import { EDIT_VALUE, EDIT_NAME, EDIT_TYPE} from './actionTypes';
 
 
 // Action creators, retournes les actions
@@ -10,15 +11,23 @@ export const editValue = (newValue, path) => ({
     path
 })
 
-export const editType = (newType, path) => ({
+export const openEditModal = (type, itemKey, path, depth) => openDialog('EDIT_PROPERTY', { type, itemKey, path, depth })
+
+export const closeEditModal = () => closeDialog('EDIT_PROPERTY');
+
+export const editType = (newType, path, itemKey, depth) => ({
     type: EDIT_TYPE,
     newType,
-    path
+    path,
+    itemKey,
+    depth
 })
 
-export const editName = (newName, path, itemKey) => ({
+export const editName = (newName, path, itemKey, depth) => ({
     type: EDIT_NAME,
     newName,
     path,
-    itemKey
+    itemKey,
+    depth
 })
+
